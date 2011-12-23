@@ -32,9 +32,9 @@ public class Game implements Runnable {
 
 	//change to Bitmap
 	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-	private Bitmap image = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.RGB_565);
-	//needed?
-	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+	private Bitmap image = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.ARGB_8888);
+	//needed
+
 
 	private boolean running = false;
 	private Screen screen;
@@ -122,12 +122,12 @@ public class Game implements Runnable {
 				}
 			}
 		}
-		try {
-
-			//how to import images??
-			screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
-			lightScreen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
-		} catch (IOException e) {
+		try {		
+			//screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
+			screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(BitmapFactory.decodeFile("/icons.png")));
+			//lightScreen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
+			lightScreen = new Screen(WIDTH, HEIGHT, new SpriteSheet(BitmapFactory.decodeFile("/icons.png")));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -269,7 +269,8 @@ public class Game implements Runnable {
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
 				int cc = screen.pixels[x + y * screen.w];
-				if (cc < 255) pixels[x + y * WIDTH] = colors[cc];
+				//if (cc < 255) pixels[x + y * WIDTH] = colors[cc];
+				if(cc < 255) image.setPixel(x, y, colors[cc]);
 			}
 		}
 		c.drawColor(0);
