@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.Random;
 
 
+import android.R;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -58,10 +60,11 @@ public class Game implements Runnable {
 
 	private SurfaceHolder surfaceHolder;
 	private Paint align;
+	private Resources res;
 
-
-	public Game(SurfaceHolder surfaceHolder){
+	public Game(SurfaceHolder surfaceHolder, Resources res){
 		this.surfaceHolder = surfaceHolder;
+		this.res = res;
 	}
 
 	public void setMenu(Menu menu) {
@@ -124,9 +127,9 @@ public class Game implements Runnable {
 		}
 		try {		
 			//screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
-			screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(BitmapFactory.decodeFile("/icons.png")));
+			screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(BitmapFactory.decodeResource(res, R.drawable.icons)));
 			//lightScreen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
-			lightScreen = new Screen(WIDTH, HEIGHT, new SpriteSheet(BitmapFactory.decodeFile("/icons.png")));
+			lightScreen = new Screen(WIDTH, HEIGHT, new SpriteSheet(BitmapFactory.decodeResource(res, R.drawable.icons)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
