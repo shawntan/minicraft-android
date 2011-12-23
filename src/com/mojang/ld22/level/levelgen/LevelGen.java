@@ -1,11 +1,14 @@
 package com.mojang.ld22.level.levelgen;
 
+/*
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.util.Random;
-
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+*/
+import java.util.Random;
+
+
 
 import com.mojang.ld22.level.tile.Tile;
 
@@ -411,7 +414,7 @@ public class LevelGen {
 			// byte[] map = LevelGen.createAndValidateUndergroundMap(w, h, (d++ % 3) + 1)[0];
 			// byte[] map = LevelGen.createAndValidateSkyMap(w, h)[0];
 
-			BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+			//BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 			int[] pixels = new int[w * h];
 			for (int y = 0; y < h; y++) {
 				for (int x = 0; x < w; x++) {
@@ -430,8 +433,8 @@ public class LevelGen {
 					if (map[i] == Tile.cloudCactus.id) pixels[i] = 0xff00ff;
 				}
 			}
-			img.setRGB(0, 0, w, h, pixels, 0, w);
-			JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img.getScaledInstance(w * 4, h * 4, Image.SCALE_AREA_AVERAGING)));
+			//img.setRGB(0, 0, w, h, pixels, 0, w);
+			//JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img.getScaledInstance(w * 4, h * 4, Image.SCALE_AREA_AVERAGING)));
 		}
 	}
 }

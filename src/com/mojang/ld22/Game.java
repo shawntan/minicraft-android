@@ -2,8 +2,9 @@ package com.mojang.ld22;
 import java.io.IOException;
 import java.util.Random;
 
+import org.nushackers.Minicraft.R;
 
-import android.R;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
