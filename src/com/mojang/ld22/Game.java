@@ -40,6 +40,15 @@ public class Game implements Runnable {
 
 
 	private boolean running = false;
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
+
 	private Screen screen;
 	private Screen lightScreen;
 	private InputHandler input = new InputHandler(this);
@@ -108,7 +117,7 @@ public class Game implements Runnable {
 		}
 	}
 
-	private void init() {
+	public void init() {
 		int pp = 0;
 		for (int r = 0; r < 6; r++) {
 			for (int g = 0; g < 6; g++) {
