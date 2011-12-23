@@ -1,17 +1,13 @@
 package com.mojang.ld22;
-
-import java.awt.BorderLayout;
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 import java.io.IOException;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.view.SurfaceHolder;
 
 import com.mojang.ld22.entity.Player;
 import com.mojang.ld22.gfx.Color;
@@ -26,7 +22,7 @@ import com.mojang.ld22.screen.Menu;
 import com.mojang.ld22.screen.TitleMenu;
 import com.mojang.ld22.screen.WonMenu;
 
-public class Game extends Canvas implements Runnable {
+public class Game implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private Random random = new Random();
 	public static final String NAME = "Minicraft";
@@ -34,8 +30,12 @@ public class Game extends Canvas implements Runnable {
 	public static final int WIDTH = 160;
 	private static final int SCALE = 3;
 
-	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	//change to Bitmap
+	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private Bitmap image = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.RGB_565);
+	//needed?
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+
 	private boolean running = false;
 	private Screen screen;
 	private Screen lightScreen;
@@ -55,6 +55,14 @@ public class Game extends Canvas implements Runnable {
 	private int pendingLevelChange;
 	private int wonTimer = 0;
 	public boolean hasWon = false;
+
+	private SurfaceHolder surfaceHolder;
+	private Paint align;
+
+
+	public Game(SurfaceHolder surfaceHolder){
+		this.surfaceHolder = surfaceHolder;
+	}
 
 	public void setMenu(Menu menu) {
 		this.menu = menu;
@@ -115,6 +123,8 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 		try {
+
+			//how to import images??
 			screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
 			lightScreen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
 		} catch (IOException e) {
@@ -136,6 +146,7 @@ public class Game extends Canvas implements Runnable {
 		init();
 
 		while (running) {
+
 			long now = System.nanoTime();
 			unprocessed += (now - lastTime) / nsPerTick;
 			lastTime = now;
@@ -154,8 +165,16 @@ public class Game extends Canvas implements Runnable {
 			}
 
 			if (shouldRender) {
-				frames++;
-				render();
+				Canvas c = null;
+				try {
+					c = surfaceHolder.lockCanvas();
+					synchronized(surfaceHolder){
+						frames++;
+						render(c);
+					}
+				} finally {
+					if(c != null) surfaceHolder.unlockCanvasAndPost(c);
+				}
 			}
 
 			if (System.currentTimeMillis() - lastTimer1 > 1000) {
@@ -165,39 +184,41 @@ public class Game extends Canvas implements Runnable {
 				ticks = 0;
 			}
 		}
+
+
 	}
 
 	public void tick() {
 		tickCount++;
-		if (!hasFocus()) {
-			input.releaseAll();
-		} else {
-			if (!player.removed && !hasWon) gameTime++;
+		//if (!hasFocus()) {
+		//	input.releaseAll();
+		//} else {
+		if (!player.removed && !hasWon) gameTime++;
 
-			input.tick();
-			if (menu != null) {
-				menu.tick();
+		input.tick();
+		if (menu != null) {
+			menu.tick();
+		} else {
+			if (player.removed) {
+				playerDeadTime++;
+				if (playerDeadTime > 60) {
+					setMenu(new DeadMenu());
+				}
 			} else {
-				if (player.removed) {
-					playerDeadTime++;
-					if (playerDeadTime > 60) {
-						setMenu(new DeadMenu());
-					}
-				} else {
-					if (pendingLevelChange != 0) {
-						setMenu(new LevelTransitionMenu(pendingLevelChange));
-						pendingLevelChange = 0;
-					}
+				if (pendingLevelChange != 0) {
+					setMenu(new LevelTransitionMenu(pendingLevelChange));
+					pendingLevelChange = 0;
 				}
-				if (wonTimer > 0) {
-					if (--wonTimer == 0) {
-						setMenu(new WonMenu());
-					}
-				}
-				level.tick();
-				Tile.tickCount++;
 			}
+			if (wonTimer > 0) {
+				if (--wonTimer == 0) {
+					setMenu(new WonMenu());
+				}
+			}
+			level.tick();
+			Tile.tickCount++;
 		}
+		//}
 	}
 
 	public void changeLevel(int dir) {
@@ -210,14 +231,14 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
-	public void render() {
+	public void render(Canvas c) {
+		/*
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
 			requestFocus();
 			return;
-		}
-
+		}*/
 		int xScroll = player.x - screen.w / 2;
 		int yScroll = player.y - (screen.h - 8) / 2;
 		if (xScroll < 16) xScroll = 16;
@@ -243,7 +264,7 @@ public class Game extends Canvas implements Runnable {
 
 		renderGui();
 
-		if (!hasFocus()) renderFocusNagger();
+		//if (!hasFocus()) renderFocusNagger();
 
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
@@ -251,17 +272,18 @@ public class Game extends Canvas implements Runnable {
 				if (cc < 255) pixels[x + y * WIDTH] = colors[cc];
 			}
 		}
-
-		Graphics g = bs.getDrawGraphics();
-		g.fillRect(0, 0, getWidth(), getHeight());
+		c.drawColor(0);
+		//g.fillRect(0, 0, getWidth(), getHeight());
 
 		int ww = WIDTH * 3;
 		int hh = HEIGHT * 3;
-		int xo = (getWidth() - ww) / 2;
-		int yo = (getHeight() - hh) / 2;
-		g.drawImage(image, xo, yo, ww, hh, null);
-		g.dispose();
-		bs.show();
+		int xo = (c.getWidth() - ww) / 2;
+		int yo = (c.getHeight() - hh) / 2;
+		c.drawBitmap(image, xo, yo, align);
+	
+		//g.drawImage(image, xo, yo, ww, hh, null);
+		//g.dispose();
+		//bs.show();
 	}
 
 	private void renderGui() {
@@ -329,23 +351,6 @@ public class Game extends Canvas implements Runnable {
 		pendingLevelChange = dir;
 	}
 
-	public static void main(String[] args) {
-		Game game = new Game();
-		game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		game.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-
-		JFrame frame = new JFrame(Game.NAME);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
-		frame.add(game, BorderLayout.CENTER);
-		frame.pack();
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-
-		game.start();
-	}
 
 	public void won() {
 		wonTimer = 60 * 3;

@@ -13,12 +13,8 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		View v = (View) findViewById(R.id.gamedisplay);
-		
 		Bitmap b = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
 		Canvas cv = new Canvas(b);
-		
-		Drawable d = new Drawable();
-		//v.setBackgroundDrawable(b);
 		
 		
 	}
