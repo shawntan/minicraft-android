@@ -1,7 +1,5 @@
 package com.mojang.ld22.sound;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 
 public class Sound {
 	public static final Sound playerHurt = new Sound("/playerhurt.wav");
@@ -12,17 +10,20 @@ public class Sound {
 	public static final Sound bossdeath = new Sound("/bossdeath.wav");
 	public static final Sound craft = new Sound("/craft.wav");
 
-	private AudioClip clip;
+	//private AudioClip clip;
 
 	private Sound(String name) {
+		/*
 		try {
 			clip = Applet.newAudioClip(Sound.class.getResource(name));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 
 	public void play() {
+		/*
 		try {
 			new Thread() {
 				public void run() {
@@ -31,6 +32,6 @@ public class Sound {
 			}.start();
 		} catch (Throwable e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 }
