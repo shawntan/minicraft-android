@@ -39,7 +39,6 @@ public class Game implements Runnable {
 	//change to Bitmap
 	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	//private Bitmap image = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.RGB_565);
-	private int[] image = new int[HEIGHT*SCALE*WIDTH*SCALE];
 	//needed
 
 

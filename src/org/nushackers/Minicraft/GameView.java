@@ -6,10 +6,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Button;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	long lastUpdate = 0;
 	long sleepTime=0;
+	
 	
 	Game game;
 	SurfaceHolder surfaceHolder;
@@ -17,10 +19,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	void init(){
 		SurfaceHolder holder = getHolder();
 		holder.addCallback(this);
+
 		game = new Game(holder, context.getResources());
 		//thread = new Thread(game);
 		setFocusable(true);
+		
 		setOnKeyListener(game.getInput());
+
+
+
 	}
 	
 

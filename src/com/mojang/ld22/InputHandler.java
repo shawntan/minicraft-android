@@ -3,11 +3,15 @@ package com.mojang.ld22;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.MobileAnarchy.Android.Widgets.Joystick.JoystickMovedListener;
+
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
+import android.view.View.OnTouchListener;
 
-public class InputHandler implements OnKeyListener {
+public class InputHandler implements OnKeyListener, JoystickMovedListener{
 	public class Key {
 		public int presses, absorbs;
 		public boolean down, clicked;
@@ -43,6 +47,10 @@ public class InputHandler implements OnKeyListener {
 	public Key right = new Key();
 	public Key attack = new Key();
 	public Key menu = new Key();
+	
+	public OnTouchListener atkListener;
+	public OnTouchListener menuListener;
+
 
 	public void releaseAll() {
 		for (int i = 0; i < keys.size(); i++) {
@@ -57,6 +65,20 @@ public class InputHandler implements OnKeyListener {
 	}
 
 	public InputHandler(Game game) {
+		menuListener = new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				menu.toggle(event.getAction() != MotionEvent.ACTION_UP);
+				return true;
+			}
+		};
+		atkListener = new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				attack.toggle(event.getAction() == MotionEvent.ACTION_DOWN);
+				return true;
+			}
+		};
 		//game.addKeyListener(this);
 	}
 /*
@@ -100,11 +122,33 @@ public class InputHandler implements OnKeyListener {
 		
 	}
 
-	
 
 	@Override
 	public boolean onKey(View v, int keyCode, KeyEvent event) {
 		toggle(event,event.getAction()==KeyEvent.ACTION_DOWN);
 		return true;
 	}
+
+	@Override
+	public void OnMoved(int pan, int tilt) {
+		if(tilt < -5) up.toggle(true); 
+		else if(tilt > 5) down.toggle(true);
+		if (pan < -5) left.toggle(true);
+		else if(pan > 5) right.toggle(true);
+	}
+
+	@Override
+	public void OnReleased() {
+		up.toggle(false);
+		down.toggle(false);
+		left.toggle(false);
+		right.toggle(false);
+	}
+
+	@Override
+	public void OnReturnedToCenter() {
+		releaseAll();
+	}
+
+
 }
