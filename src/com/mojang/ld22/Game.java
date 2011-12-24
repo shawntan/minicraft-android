@@ -37,7 +37,7 @@ public class Game implements Runnable {
 
 	//change to Bitmap
 	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-	private Bitmap image = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.RGB_565);
+	//private Bitmap image = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.RGB_565);
 	//needed
 
 
@@ -87,8 +87,8 @@ public class Game implements Runnable {
 
 	private Paint align;
 	private Resources res;
-	private Rect srcRect = new Rect(0, 0, image.getWidth(), image.getHeight());
-	private Rect desRect = new Rect(0, 0, image.getWidth()*SCALE,image.getHeight()*SCALE);
+	//private Rect srcRect = new Rect(0, 0, image.getWidth(), image.getHeight());
+	//private Rect desRect = new Rect(0, 0, image.getWidth()*SCALE,image.getHeight()*SCALE);
 
 	public Game(SurfaceHolder surfaceHolder, Resources res){
 		this.surfaceHolder = surfaceHolder;
