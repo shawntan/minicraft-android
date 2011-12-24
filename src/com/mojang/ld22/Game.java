@@ -157,7 +157,7 @@ public class Game implements Runnable {
 		long lastTimer1 = System.currentTimeMillis();
 
 		init();
-
+		System.out.println("Gameloop starting..");
 		while (running) {
 
 			long now = System.nanoTime();
