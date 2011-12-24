@@ -1,5 +1,4 @@
 package com.mojang.ld22;
-import java.io.IOException;
 import java.util.Random;
 
 import org.nushackers.Minicraft.R;
@@ -10,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.mojang.ld22.entity.Player;
@@ -69,6 +69,15 @@ public class Game implements Runnable {
 	public boolean hasWon = false;
 
 	private SurfaceHolder surfaceHolder;
+	public SurfaceHolder getSurfaceHolder() {
+		return surfaceHolder;
+	}
+
+	public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
+		this.surfaceHolder = surfaceHolder;
+	}
+
+
 	private Paint align;
 	private Resources res;
 
@@ -170,13 +179,12 @@ public class Game implements Runnable {
 				unprocessed -= 1;
 				shouldRender = true;
 			}
-
 			try {
 				Thread.sleep(2);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
+			
 			if (shouldRender) {
 				Canvas c = null;
 				try {
