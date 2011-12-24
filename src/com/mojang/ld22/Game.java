@@ -95,6 +95,7 @@ public class Game implements Runnable {
 	public Game(SurfaceHolder surfaceHolder, Resources res){
 		this.surfaceHolder = surfaceHolder;
 		this.res = res;
+		init();
 	}
 
 	public void setMenu(Menu menu) {
@@ -104,11 +105,13 @@ public class Game implements Runnable {
 
 	public void start() {
 		running = true;
-		new Thread(this).start();
+		thread = new Thread(this);
+		thread.start();
 	}
-
-	public void stop() {
+	private Thread thread;
+	public void stop() throws InterruptedException {
 		running = false;
+		thread.join();
 	}
 
 	public void resetGame() {
@@ -172,14 +175,13 @@ public class Game implements Runnable {
 	}
 
 	public void run() {
+		
 		long lastTime = System.nanoTime();
 		double unprocessed = 0;
 		double nsPerTick = 1000000000.0 / 60;
-		int frames = 0;
+		/*int frames = 0;
 		int ticks = 0;
-		long lastTimer1 = System.currentTimeMillis();
-
-		init();
+		long lastTimer1 = System.currentTimeMillis();*/
 		while (running) {
 
 			long now = System.nanoTime();
@@ -187,28 +189,24 @@ public class Game implements Runnable {
 			lastTime = now;
 			boolean shouldRender = true;
 			while (unprocessed >= 1) {
-				ticks++;
+				//ticks++;
 				tick();
 				unprocessed -= 1;
 				shouldRender = true;
 			}
-			
 			try {
 				Thread.sleep(2);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
-			if (shouldRender) {
-				frames++;
-				render();
-			}
+			if (shouldRender) render();
+			/**
 			if (System.currentTimeMillis() - lastTimer1 > 1000) {
 				lastTimer1 += 1000;
 				System.out.println(ticks + " ticks, " + frames + " fps");
 				frames = 0;
 				ticks = 0;
-			}
+			}**/
 
 		}
 

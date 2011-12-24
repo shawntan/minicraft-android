@@ -14,15 +14,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	Game game;
 	SurfaceHolder surfaceHolder;
 	Context context;
-	
-	private Thread thread;
-	
 	void init(){
 		SurfaceHolder holder = getHolder();
 		holder.addCallback(this);
-		
 		game = new Game(holder, context.getResources());
-		
 		//thread = new Thread(game);
 		setFocusable(true);
 		setOnKeyListener(game.getInput());
@@ -45,25 +40,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public void surfaceCreated(SurfaceHolder sh) {	
-		game.setSurfaceHolder(sh);
-       // if(!game.isRunning()){
-            //When game is opened again in the Android O
 		game.start();
-            
-       // }else{
-            //creating the game Thread for the first time
-        //    thread.start();
-        //}
-
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder arg0) {
 		boolean retry = true;
-		game.setRunning(false);
 		while (retry) {
 			try {
-				thread.join();
+				game.stop();
 				retry = false;
 			} catch (InterruptedException e) {
 			}
