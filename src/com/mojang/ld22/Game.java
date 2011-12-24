@@ -9,6 +9,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
@@ -31,7 +33,7 @@ public class Game implements Runnable {
 	public static final String NAME = "Minicraft";
 	public static final int HEIGHT = 120;
 	public static final int WIDTH = 160;
-	private static final int SCALE = 5;
+	private static final int SCALE = 3;
 
 	//change to Bitmap
 	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -80,6 +82,8 @@ public class Game implements Runnable {
 
 	private Paint align;
 	private Resources res;
+	private Rect srcRect = new Rect(0, 0, image.getWidth(), image.getHeight());
+	private Rect desRect = new Rect(0, 0, image.getWidth()*SCALE,image.getHeight()*SCALE);
 
 	public Game(SurfaceHolder surfaceHolder, Resources res){
 		this.surfaceHolder = surfaceHolder;
@@ -301,7 +305,7 @@ public class Game implements Runnable {
 		int hh = HEIGHT * 3;
 		int xo = (c.getWidth() - ww) / 2;
 		int yo = (c.getHeight() - hh) / 2;
-		c.drawBitmap(image, xo, yo, align);
+		c.drawBitmap(image,srcRect,desRect,align);
 	
 		//g.drawImage(image, xo, yo, ww, hh, null);
 		//g.dispose();
