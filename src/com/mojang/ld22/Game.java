@@ -31,11 +31,11 @@ public class Game implements Runnable {
 	public static final String NAME = "Minicraft";
 	public static final int HEIGHT = 120;
 	public static final int WIDTH = 160;
-	private static final int SCALE = 3;
+	private static final int SCALE = 5;
 
 	//change to Bitmap
 	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-	private Bitmap image = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.ARGB_8888);
+	private Bitmap image = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.RGB_565);
 	//needed
 
 
@@ -294,7 +294,7 @@ public class Game implements Runnable {
 				if(cc < 255) image.setPixel(x, y, colors[cc]);
 			}
 		}
-		c.drawColor(0);
+		//c.drawColor(0);
 		//g.fillRect(0, 0, getWidth(), getHeight());
 
 		int ww = WIDTH * 3;
