@@ -63,8 +63,7 @@ public class Screen {
 			if (mirrorY) ys = 7 - y;
 			if (y + yp < 0 || y + yp >= h) continue;
 			for (int x = 0; x < 8; x++) {
-				if (x + xp < 0 || x + xp >= w) continue;
-
+				if (x + xp < 0 || x + xp >= w) break; //continue;
 				int xs = x;
 				if (mirrorX) xs = 7 - x;
 				int col = (colors >> (sheet.pixels[xs + ys * sheet.width + toffs] * 8)) & 255;
@@ -88,7 +87,6 @@ public class Screen {
 				if (oPixels[i] / 10 <= dither[((x + xa) & 3) + ((y + ya) & 3) * 4]) pixels[i] = 0;
 				i++;
 			}
-
 		}
 	}
 

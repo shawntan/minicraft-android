@@ -1,4 +1,5 @@
 package com.mojang.ld22;
+import java.util.Arrays;
 import java.util.Random;
 
 import org.nushackers.Minicraft.R;
@@ -38,6 +39,7 @@ public class Game implements Runnable {
 	//change to Bitmap
 	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	//private Bitmap image = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.RGB_565);
+	private int[] image = new int[HEIGHT*SCALE*WIDTH*SCALE];
 	//needed
 
 
@@ -293,16 +295,21 @@ public class Game implements Runnable {
 
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
-				int cc = screen.pixels[x + y * screen.w];
-				if(cc < 255) screen.pixels[x + y * WIDTH] = colors[cc];
+				int p =x + y * screen.w, cc = screen.pixels[p];
+				if(cc < 255) screen.pixels[p] = colors[cc];
+				/*
+				int des= x*SCALE + y*ww;
+				if(cc < 255) Arrays.fill(image, des, des+SCALE, colors[cc]);*/
 			}
+			//for(int o=0;o<SCALE;o++) System.arraycopy(image, y*ww, image, y*ww + o, ww);
 		}
+		
 		//image.setPixels(screen.pixels, 0, screen.w, 0, 0, screen.w, screen.h);
 		//c.drawColor(0);
 		//g.fillRect(0, 0, getWidth(), getHeight());
 
-		int ww = WIDTH * 3;
-		int hh = HEIGHT * 3;
+		int ww = WIDTH * SCALE;
+		int hh = HEIGHT * SCALE;
 		Canvas c = null;
 		try {
 			c = surfaceHolder.lockCanvas();
@@ -310,7 +317,8 @@ public class Game implements Runnable {
 				int xo = (c.getWidth() - ww) / 2;
 				int yo = (c.getHeight() - hh) / 2;
 				//c.drawBitmap(image,srcRect,desRect,align);
-				c.drawBitmap(screen.pixels,0,screen.w,0,0,screen.w,screen.h,false,align);
+				c.scale(SCALE,SCALE, xo, yo);
+				c.drawBitmap(screen.pixels,0,WIDTH,xo,yo,WIDTH,HEIGHT,false,align);
 			}
 		} finally {
 			if(c != null) surfaceHolder.unlockCanvasAndPost(c);
