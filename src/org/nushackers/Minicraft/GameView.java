@@ -45,7 +45,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public void surfaceCreated(SurfaceHolder sh) {	
-		System.out.println("Surface created");
 		game.setSurfaceHolder(sh);
        // if(!game.isRunning()){
             //When game is opened again in the Android O

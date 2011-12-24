@@ -190,24 +190,16 @@ public class Game implements Runnable {
 				unprocessed -= 1;
 				shouldRender = true;
 			}
-			/*
+			
 			try {
 				Thread.sleep(2);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}*/
+			}
 			
 			if (shouldRender) {
-				Canvas c = null;
-				try {
-					c = surfaceHolder.lockCanvas();
-					synchronized(surfaceHolder){
-						frames++;
-						render(c);
-					}
-				} finally {
-					if(c != null) surfaceHolder.unlockCanvasAndPost(c);
-				}
+				frames++;
+				render();
 			}
 			if (System.currentTimeMillis() - lastTimer1 > 1000) {
 				lastTimer1 += 1000;
@@ -264,7 +256,7 @@ public class Game implements Runnable {
 
 	}
 
-	public void render(Canvas c) {
+	public void render() {
 		/*
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
@@ -302,22 +294,28 @@ public class Game implements Runnable {
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
 				int cc = screen.pixels[x + y * screen.w];
-				//if (cc < 255) pixels[x + y * WIDTH] = colors[cc];
-				if(cc < 255) image.setPixel(x, y, colors[cc]);
+				if(cc < 255) screen.pixels[x + y * WIDTH] = colors[cc];
 			}
 		}
+		//image.setPixels(screen.pixels, 0, screen.w, 0, 0, screen.w, screen.h);
 		//c.drawColor(0);
 		//g.fillRect(0, 0, getWidth(), getHeight());
 
 		int ww = WIDTH * 3;
 		int hh = HEIGHT * 3;
-		int xo = (c.getWidth() - ww) / 2;
-		int yo = (c.getHeight() - hh) / 2;
-		c.drawBitmap(image,srcRect,desRect,align);
-	
-		//g.drawImage(image, xo, yo, ww, hh, null);
-		//g.dispose();
-		//bs.show();
+		Canvas c = null;
+		try {
+			c = surfaceHolder.lockCanvas();
+			synchronized(surfaceHolder){
+				int xo = (c.getWidth() - ww) / 2;
+				int yo = (c.getHeight() - hh) / 2;
+				//c.drawBitmap(image,srcRect,desRect,align);
+				c.drawBitmap(screen.pixels,0,screen.w,0,0,screen.w,screen.h,false,align);
+			}
+		} finally {
+			if(c != null) surfaceHolder.unlockCanvasAndPost(c);
+		}
+
 	}
 
 	private void renderGui() {
