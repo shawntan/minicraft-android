@@ -55,6 +55,11 @@ public class Game implements Runnable {
 	private Screen lightScreen;
 	private InputHandler input = new InputHandler(this);
 
+	public InputHandler getInput() {
+		return input;
+	}
+
+
 	private int[] colors = new int[256];
 	private int tickCount = 0;
 	public int gameTime = 0;
@@ -173,7 +178,6 @@ public class Game implements Runnable {
 		long lastTimer1 = System.currentTimeMillis();
 
 		init();
-		System.out.println("Gameloop starting..");
 		while (running) {
 
 			long now = System.nanoTime();
@@ -186,11 +190,12 @@ public class Game implements Runnable {
 				unprocessed -= 1;
 				shouldRender = true;
 			}
+			/*
 			try {
 				Thread.sleep(2);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			}*/
 			
 			if (shouldRender) {
 				Canvas c = null;
@@ -204,13 +209,13 @@ public class Game implements Runnable {
 					if(c != null) surfaceHolder.unlockCanvasAndPost(c);
 				}
 			}
-
 			if (System.currentTimeMillis() - lastTimer1 > 1000) {
 				lastTimer1 += 1000;
 				System.out.println(ticks + " ticks, " + frames + " fps");
 				frames = 0;
 				ticks = 0;
 			}
+
 		}
 
 

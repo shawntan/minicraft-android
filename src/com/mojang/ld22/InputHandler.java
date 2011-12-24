@@ -3,7 +3,11 @@ package com.mojang.ld22;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InputHandler {
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnKeyListener;
+
+public class InputHandler implements OnKeyListener {
 	public class Key {
 		public int presses, absorbs;
 		public boolean down, clicked;
@@ -64,12 +68,14 @@ public class InputHandler {
 		toggle(ke, false);
 	}
 */
-/*
+
 	private void toggle(KeyEvent ke, boolean pressed) {
-		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD8) up.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD2) down.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD4) left.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD6) right.toggle(pressed);
+		//directions
+		if (ke.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) up.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) down.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) left.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) right.toggle(pressed);
+		/*
 		if (ke.getKeyCode() == KeyEvent.VK_W) up.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_S) down.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_A) left.toggle(pressed);
@@ -77,8 +83,9 @@ public class InputHandler {
 		if (ke.getKeyCode() == KeyEvent.VK_UP) up.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_DOWN) down.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_LEFT) left.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_RIGHT) right.toggle(pressed);
-
+		if (ke.getKeyCode() == KeyEvent.VK_RIGHT) right.toggle(pressed);*/
+		//menu & attack
+		/*
 		if (ke.getKeyCode() == KeyEvent.VK_TAB) menu.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_ALT) menu.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_ALT_GRAPH) menu.toggle(pressed);
@@ -87,12 +94,17 @@ public class InputHandler {
 		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD0) attack.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_INSERT) attack.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_ENTER) menu.toggle(pressed);
-
-		if (ke.getKeyCode() == KeyEvent.VK_X) menu.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_C) attack.toggle(pressed);
+		 */
+		if (ke.getKeyCode() == KeyEvent.KEYCODE_Q) menu.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.KEYCODE_W) attack.toggle(pressed);
+		
 	}
 
-	public void keyTyped(KeyEvent ke) {
+	
+
+	@Override
+	public boolean onKey(View v, int keyCode, KeyEvent event) {
+		toggle(event,event.getAction()==KeyEvent.ACTION_DOWN);
+		return true;
 	}
-	*/
 }
