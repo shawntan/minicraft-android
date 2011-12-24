@@ -31,8 +31,8 @@ public class Game implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private Random random = new Random();
 	public static final String NAME = "Minicraft";
-	public static final int HEIGHT = 120;
-	public static final int WIDTH = 160;
+	public static final int HEIGHT = 140;
+	public static final int WIDTH = 250;
 	private static final int SCALE = 3;
 
 	//change to Bitmap
@@ -148,11 +148,14 @@ public class Game implements Runnable {
 				}
 			}
 		}
-		try {		
+		try {
+			BitmapFactory.Options opts = new BitmapFactory.Options();
+			opts.inPreferredConfig = Bitmap.Config.RGB_565;
+			opts.inScaled = false;
 			//screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
-			screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(BitmapFactory.decodeResource(res, R.drawable.icons)));
+			screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(BitmapFactory.decodeResource(res, R.drawable.icons,opts)));
 			//lightScreen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
-			lightScreen = new Screen(WIDTH, HEIGHT, new SpriteSheet(BitmapFactory.decodeResource(res, R.drawable.icons)));
+			lightScreen = new Screen(WIDTH, HEIGHT, new SpriteSheet(BitmapFactory.decodeResource(res, R.drawable.icons,opts)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
