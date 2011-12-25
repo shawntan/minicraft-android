@@ -215,7 +215,7 @@ public class JoystickView extends View {
 	// Public Methods 
 	// =========================================
 
-	public void setOnJostickMovedListener(JoystickMovedListener listener) {
+	public void setOnJoystickMovedListener(JoystickMovedListener listener) {
 		this.moveListener = listener;
 	}
 	
@@ -506,6 +506,7 @@ public class JoystickView extends View {
 						}
 					}
 				}, i * 40);
+				
 			}
 
 			if (moveListener != null) {

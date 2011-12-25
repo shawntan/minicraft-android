@@ -23,9 +23,16 @@ public class MultiButton extends View{
 
 	private boolean touched;
 
+	private MultiTouchListener touchEventListener;
+	public MultiTouchListener getTouchEventListener() {
+		return touchEventListener;
+	}
+	public void setTouchEventListener(MultiTouchListener touchEventListener) {
+		this.touchEventListener = touchEventListener;
+	}
 	private int offsetX;
-
 	private int offsetY;
+	
 	public MultiButton(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		// TODO Auto-generated constructor stub
@@ -133,12 +140,14 @@ public class MultiButton extends View{
 		Log.v(TAG,"release");
 		touched = false;
 		invalidate();
+		if(touchEventListener != null) touchEventListener.onTouchEvent(touched);
 		this.pointerId = INVALID_POINTER_ID;
 	}
 	private void press(int pointerId) {
 		Log.v(TAG,"press");
 		touched = true;
 		invalidate();
+		if(touchEventListener != null) touchEventListener.onTouchEvent(touched);
 		this.pointerId = pointerId;
 	}
 
@@ -162,4 +171,7 @@ public class MultiButton extends View{
 		offsetY = y;
 	}
 
+	public interface MultiTouchListener {
+		public void onTouchEvent(boolean pressed);
+	}
 }

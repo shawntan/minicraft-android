@@ -16,7 +16,7 @@ public final class R {
         public static final int rounded_corner_box=0x7f020002;
     }
     public static final class id {
-        public static final int controlPad1=0x7f050002;
+        public static final int controlPad=0x7f050002;
         public static final int gameView=0x7f050000;
         public static final int relativeLayout1=0x7f050001;
     }

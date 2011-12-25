@@ -13,7 +13,7 @@
         android:layout_height="match_parent" >
 
         <org.nushackers.Minicraft.ControlPad
-            android:id="@+id/controlPad1"
+            android:id="@+id/controlPad"
             android:layout_width="wrap_content"
             android:layout_height="110dp"
             android:layout_alignParentBottom="true"

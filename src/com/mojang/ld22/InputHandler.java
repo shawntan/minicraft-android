@@ -3,6 +3,8 @@ package com.mojang.ld22;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.nushackers.Minicraft.MultiButton.MultiTouchListener;
+
 import com.MobileAnarchy.Android.Widgets.Joystick.JoystickMovedListener;
 
 import android.view.KeyEvent;
@@ -44,8 +46,8 @@ public class InputHandler implements OnKeyListener, JoystickMovedListener{
 	public Key attack = new Key();
 	public Key menu = new Key();
 	
-	public OnTouchListener atkListener;
-	public OnTouchListener menuListener;
+	public MultiTouchListener atkListener;
+	public MultiTouchListener menuListener;
 
 
 	public void releaseAll() {
@@ -61,19 +63,18 @@ public class InputHandler implements OnKeyListener, JoystickMovedListener{
 	}
 
 	public InputHandler(Game game) {
-		menuListener = new OnTouchListener() {
+		menuListener = new MultiTouchListener() {
+			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				if (event.getAction() == MotionEvent.ACTION_DOWN) menu.toggle(true);
-				return true;
+			public void onTouchEvent(boolean pressed) {
+				menu.toggle(pressed);
 			}
 		};
-		atkListener = new OnTouchListener() {
+		atkListener =  new MultiTouchListener() {
+			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				if(event.getAction() == MotionEvent.ACTION_DOWN) attack.toggle(true);
-				else if (event.getAction() == MotionEvent.ACTION_UP) attack.toggle(false);
-				return true;
+			public void onTouchEvent(boolean pressed) {
+				attack.toggle(pressed);
 			}
 		};
 		//game.addKeyListener(this);

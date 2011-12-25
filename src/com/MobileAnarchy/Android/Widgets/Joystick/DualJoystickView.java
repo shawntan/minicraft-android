@@ -89,8 +89,8 @@ public class DualJoystickView extends LinearLayout {
 	}
 	
 	public void setOnJostickMovedListener(JoystickMovedListener left, JoystickMovedListener right) {
-		stickL.setOnJostickMovedListener(left);
-		stickR.setOnJostickMovedListener(right);
+		stickL.setOnJoystickMovedListener(left);
+		stickR.setOnJoystickMovedListener(right);
 	}
 	
 	public void setOnJostickClickedListener(JoystickClickedListener left, JoystickClickedListener right) {

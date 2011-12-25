@@ -1,5 +1,8 @@
 package org.nushackers.Minicraft;
 
+import org.nushackers.Minicraft.MultiButton.MultiTouchListener;
+
+import com.MobileAnarchy.Android.Widgets.Joystick.JoystickMovedListener;
 import com.MobileAnarchy.Android.Widgets.Joystick.JoystickView;
 
 import android.content.Context;
@@ -96,4 +99,16 @@ public class ControlPad extends LinearLayout {
 				button2.onTouchEvent(event) |
 				joystick.onTouchEvent(event);
 	}
+	
+	public void setJoystickListener(JoystickMovedListener l){
+		joystick.setOnJoystickMovedListener(l);
+	}
+	
+	public void setButton1Listener(MultiTouchListener l) {
+		button1.setTouchEventListener(l);
+	}
+	public void setButton2Listener(MultiTouchListener l) {
+		button2.setTouchEventListener(l);
+	}
+
 }
