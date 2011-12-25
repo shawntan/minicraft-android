@@ -1,45 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
     <org.nushackers.Minicraft.GameView
         android:id="@+id/gameView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
- 
-
-        <Button
-            android:id="@+id/menu"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <org.nushackers.Minicraft.ControlPad
+            android:id="@+id/controlPad1"
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/rounded_corner_box"
-            android:text="Menu" />
-
-        <Button
-            android:id="@+id/attack"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_above="@+id/menu"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/rounded_corner_box"
-            android:text="Attack" />
-
-        <com.MobileAnarchy.Android.Widgets.Joystick.JoystickView
-            android:id="@+id/joystickView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp" >
+        </org.nushackers.Minicraft.ControlPad>
 
     </RelativeLayout>
 

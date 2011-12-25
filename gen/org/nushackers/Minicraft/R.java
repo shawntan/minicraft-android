@@ -16,10 +16,8 @@ public final class R {
         public static final int rounded_corner_box=0x7f020002;
     }
     public static final class id {
-        public static final int attack=0x7f050003;
+        public static final int controlPad1=0x7f050002;
         public static final int gameView=0x7f050000;
-        public static final int joystickView=0x7f050004;
-        public static final int menu=0x7f050002;
         public static final int relativeLayout1=0x7f050001;
     }
     public static final class layout {

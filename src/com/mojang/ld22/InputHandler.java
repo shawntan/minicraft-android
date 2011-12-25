@@ -21,12 +21,8 @@ public class InputHandler implements OnKeyListener, JoystickMovedListener{
 		}
 
 		public void toggle(boolean pressed) {
-			if (pressed != down) {
-				down = pressed;
-			}
-			if (pressed) {
-				presses++;
-			}
+			/*if (pressed != down)*/ down = pressed;
+			if (pressed) presses++;
 		}
 
 		public void tick() {
@@ -68,14 +64,15 @@ public class InputHandler implements OnKeyListener, JoystickMovedListener{
 		menuListener = new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				menu.toggle(event.getAction() != MotionEvent.ACTION_UP);
+				if (event.getAction() == MotionEvent.ACTION_DOWN) menu.toggle(true);
 				return true;
 			}
 		};
 		atkListener = new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				attack.toggle(event.getAction() == MotionEvent.ACTION_DOWN);
+				if(event.getAction() == MotionEvent.ACTION_DOWN) attack.toggle(true);
+				else if (event.getAction() == MotionEvent.ACTION_UP) attack.toggle(false);
 				return true;
 			}
 		};
@@ -133,17 +130,20 @@ public class InputHandler implements OnKeyListener, JoystickMovedListener{
 	public void OnMoved(int pan, int tilt) {
 		if(tilt < -5) up.toggle(true); 
 		else if(tilt > 5) down.toggle(true);
+		else {
+			up.toggle(false);
+			down.toggle(false);
+		}
 		if (pan < -5) left.toggle(true);
 		else if(pan > 5) right.toggle(true);
+		else {
+			left.toggle(false);
+			right.toggle(false);
+		}
 	}
 
 	@Override
-	public void OnReleased() {
-		up.toggle(false);
-		down.toggle(false);
-		left.toggle(false);
-		right.toggle(false);
-	}
+	public void OnReleased() {}
 
 	@Override
 	public void OnReturnedToCenter() {
