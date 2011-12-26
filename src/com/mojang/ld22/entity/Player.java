@@ -16,10 +16,12 @@ import com.mojang.ld22.screen.InventoryMenu;
 import com.mojang.ld22.sound.Sound;
 
 public class Player extends Mob {
-	private InputHandler input;
+	public transient InputHandler input;
+	public transient Game game;
+	
 	private int attackTime, attackDir;
 
-	public Game game;
+	
 	public Inventory inventory = new Inventory();
 	public Item attackItem;
 	public Item activeItem;

@@ -1,9 +1,6 @@
 package com.mojang.ld22;
 import java.util.Random;
-
 import org.nushackers.Minicraft.R;
-
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -100,13 +97,20 @@ public class Game implements Runnable {
 
 	public void start() {
 		running = true;
-		thread = new Thread(this);
-		thread.start();
+		if(thread == null) {
+			thread = new Thread(this);
+			thread.start();
+		}
 	}
 	private Thread thread;
-	public void stop() throws InterruptedException {
+	public void stop(){
 		running = false;
-		thread.join();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void resetGame() {
@@ -171,7 +175,7 @@ public class Game implements Runnable {
 
 	@Override
 	public void run() {
-		
+
 		long lastTime = System.nanoTime();
 		double unprocessed = 0;
 		double nsPerTick = 1000000000.0 / 60;
@@ -297,7 +301,7 @@ public class Game implements Runnable {
 			}
 			//for(int o=0;o<SCALE;o++) System.arraycopy(image, y*ww, image, y*ww + o, ww);
 		}
-		
+
 		//image.setPixels(screen.pixels, 0, screen.w, 0, 0, screen.w, screen.h);
 		//c.drawColor(0);
 		//g.fillRect(0, 0, getWidth(), getHeight());
@@ -390,4 +394,33 @@ public class Game implements Runnable {
 		wonTimer = 60 * 3;
 		hasWon = true;
 	}
+	public State getState() {
+		State state = new State();
+		state.player = this.player;
+		state.levels = this.levels;
+		state.playerDeadTime = this.playerDeadTime;
+		state.wonTimer = this.wonTimer;
+		state.gameTime = this.gameTime;
+		state.hasWon = this.hasWon;
+		state.currentLevel = this.currentLevel;	
+		return state;
+	}
+
+	public void loadState(State s) {
+		State state = s;
+		this.player = state.player;
+		this.levels = state.levels;
+		this.level = levels[currentLevel];
+		this.level.player = player;
+		this.player.game = this;
+		this.player.input = this.input;
+		this.playerDeadTime = state.playerDeadTime;
+		this.wonTimer =state.wonTimer;
+		this.gameTime = state.gameTime;
+		this.hasWon = state.hasWon;
+		this.currentLevel = state.currentLevel;
+		setMenu(null);
+	}
+
+
 }

@@ -1,5 +1,6 @@
 package com.mojang.ld22.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import com.mojang.ld22.item.Item;
 import com.mojang.ld22.item.ResourceItem;
 import com.mojang.ld22.item.resource.Resource;
 
-public class Inventory {
+public class Inventory implements Serializable {
 	public List<Item> items = new ArrayList<Item>();
 
 	public void add(Item item) {

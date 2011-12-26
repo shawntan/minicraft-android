@@ -51,14 +51,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder arg0) {
-		boolean retry = true;
-		while (retry) {
-			try {
-				game.stop();
-				retry = false;
-			} catch (InterruptedException e) {
-			}
-		}
+		game.stop();
 	}
 	
 
