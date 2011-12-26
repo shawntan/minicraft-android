@@ -1,6 +1,7 @@
 package org.nushackers.Minicraft;
 
 import com.mojang.ld22.Game;
+import com.mojang.ld22.State;
 
 import android.app.Activity;
 import android.content.Context;
@@ -36,6 +37,7 @@ public class MinicraftActivity extends Activity {
 		gv.setDimensions(metrics.widthPixels,metrics.heightPixels);
 		
 		game = gv.game;
+
 		ControlPad pad = (ControlPad)findViewById(R.id.controlPad);
 		
 		
@@ -43,11 +45,13 @@ public class MinicraftActivity extends Activity {
 		pad.setButton1Listener(game.getInput().atkListener);
 		pad.setButton2Listener(game.getInput().menuListener);
 		
+
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wakelock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "Minicraft");
 		wakelock.acquire();
 		game.start();
 	
+
 
 	}
 	@Override
@@ -56,5 +60,12 @@ public class MinicraftActivity extends Activity {
 		game.stop();
 		if(wakelock != null && wakelock.isHeld())
 			wakelock.release();
+	}
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		game.stop();
+		outState.putSerializable("save",game.getState());
+		game.start();
 	}
 }

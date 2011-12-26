@@ -64,6 +64,7 @@ public class GameView extends View {
 		yo = (int)(height - hh) / 2;
 		System.out.println(width+"x"+height+":"+scale);
 	}
+
 	
 	private Runnable doInvalidate = new Runnable() {		
 		public void run() {
@@ -72,6 +73,7 @@ public class GameView extends View {
 	};
 	public void repaint() {
 		post(doInvalidate);
+
 	}
 	
 

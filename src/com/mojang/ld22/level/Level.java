@@ -1,5 +1,6 @@
 package com.mojang.ld22.level;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,7 +17,7 @@ import com.mojang.ld22.gfx.Screen;
 import com.mojang.ld22.level.levelgen.LevelGen;
 import com.mojang.ld22.level.tile.Tile;
 
-public class Level {
+public class Level implements Serializable {
 	private Random random = new Random();
 
 	public int w, h;
@@ -32,7 +33,7 @@ public class Level {
 	public int monsterDensity = 8;
 
 	public List<Entity> entities = new ArrayList<Entity>();
-	private Comparator<Entity> spriteSorter = new Comparator<Entity>() {
+	private static Comparator<Entity> spriteSorter = new Comparator<Entity>() {
 		@Override
 		public int compare(Entity e0, Entity e1) {
 			if (e1.y < e0.y) return +1;

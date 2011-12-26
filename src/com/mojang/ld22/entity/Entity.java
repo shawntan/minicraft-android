@@ -1,5 +1,6 @@
 package com.mojang.ld22.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ import com.mojang.ld22.item.Item;
 import com.mojang.ld22.level.Level;
 import com.mojang.ld22.level.tile.Tile;
 
-public class Entity {
+public class Entity implements Serializable{
 	protected final Random random = new Random();
 	public int x, y;
 	public int xr = 6;
