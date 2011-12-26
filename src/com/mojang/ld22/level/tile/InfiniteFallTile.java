@@ -10,12 +10,15 @@ public class InfiniteFallTile extends Tile {
 		super(id);
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 	}
 
+	@Override
 	public void tick(Level level, int xt, int yt) {
 	}
 
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		if (e instanceof AirWizard) return true;
 		return false;

@@ -14,6 +14,7 @@ public class ToolRecipe extends Recipe {
 		this.level = level;
 	}
 
+	@Override
 	public void craft(Player player) {
 		player.inventory.add(0, new ToolItem(type, level));
 	}

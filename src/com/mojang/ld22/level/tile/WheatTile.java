@@ -18,6 +18,7 @@ public class WheatTile extends Tile {
 		super(id);
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int age = level.getData(x, y);
 		int col = Color.get(level.dirtColor - 121, level.dirtColor - 11, level.dirtColor, 50);
@@ -36,6 +37,7 @@ public class WheatTile extends Tile {
 		screen.render(x * 16 + 8, y * 16 + 8, 4 + 3 * 32 + icon, col, 1);
 	}
 
+	@Override
 	public void tick(Level level, int xt, int yt) {
 		if (random.nextInt(2) == 0) return;
 
@@ -43,6 +45,7 @@ public class WheatTile extends Tile {
 		if (age < 50) level.setData(xt, yt, age + 1);
 	}
 
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) {
 			ToolItem tool = (ToolItem) item;
@@ -56,12 +59,14 @@ public class WheatTile extends Tile {
 		return false;
 	}
 
+	@Override
 	public void steppedOn(Level level, int xt, int yt, Entity entity) {
 		if (random.nextInt(60) != 0) return;
 		if (level.getData(xt, yt) < 2) return;
 		harvest(level, xt, yt);
 	}
 
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 
 		harvest(level, x, y);

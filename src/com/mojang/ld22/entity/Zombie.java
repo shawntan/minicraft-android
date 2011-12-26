@@ -18,6 +18,7 @@ public class Zombie extends Mob {
 
 	}
 
+	@Override
 	public void tick() {
 		super.tick();
 
@@ -43,6 +44,7 @@ public class Zombie extends Mob {
 		if (randomWalkTime > 0) randomWalkTime--;
 	}
 
+	@Override
 	public void render(Screen screen) {
 		int xt = 0;
 		int yt = 14;
@@ -80,12 +82,14 @@ public class Zombie extends Mob {
 		screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, col, flip2);
 	}
 
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (entity instanceof Player) {
 			entity.hurt(this, lvl + 1, dir);
 		}
 	}
 
+	@Override
 	protected void die() {
 		super.die();
 

@@ -20,6 +20,7 @@ public class Item implements ListItem {
 	public void onTake(ItemEntity itemEntity) {
 	}
 
+	@Override
 	public void renderInventory(Screen screen, int x, int y) {
 	}
 

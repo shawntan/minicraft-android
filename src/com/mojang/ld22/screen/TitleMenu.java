@@ -13,6 +13,7 @@ public class TitleMenu extends Menu {
 	public TitleMenu() {
 	}
 
+	@Override
 	public void tick() {
 		if (input.up.clicked) selected--;
 		if (input.down.clicked) selected++;
@@ -32,6 +33,7 @@ public class TitleMenu extends Menu {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		screen.clear(0);
 

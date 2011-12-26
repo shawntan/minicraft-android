@@ -21,6 +21,7 @@ public class TreeTile extends Tile {
 		connectsToGrass = true;
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(10, 30, 151, level.grassColor);
 		int barkCol1 = Color.get(10, 30, 430, level.grassColor);
@@ -57,19 +58,23 @@ public class TreeTile extends Tile {
 		}
 	}
 
+	@Override
 	public void tick(Level level, int xt, int yt) {
 		int damage = level.getData(xt, yt);
 		if (damage > 0) level.setData(xt, yt, damage - 1);
 	}
 
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return false;
 	}
 
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		hurt(level, x, y, dmg);
 	}
 
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) {
 			ToolItem tool = (ToolItem) item;

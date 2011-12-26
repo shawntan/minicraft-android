@@ -11,12 +11,14 @@ public class InstructionsMenu extends Menu {
 		this.parent = parent;
 	}
 
+	@Override
 	public void tick() {
 		if (input.attack.clicked || input.menu.clicked) {
 			game.setMenu(parent);
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		screen.clear(0);
 

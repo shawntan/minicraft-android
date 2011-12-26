@@ -17,6 +17,7 @@ public class CloudTile extends Tile {
 		super(id);
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(444, 444, 555, 555);
 		int transitionColor = Color.get(333, 444, 555, -1);
@@ -63,10 +64,12 @@ public class CloudTile extends Tile {
 			screen.render(x * 16 + 8, y * 16 + 8, (r ? 4 : 5) + (d ? 0 : 1) * 32, transitionColor, 3);
 	}
 
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return true;
 	}
 
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) {
 			ToolItem tool = (ToolItem) item;

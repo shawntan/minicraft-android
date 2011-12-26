@@ -42,6 +42,7 @@ public class Player extends Mob {
 		inventory.add(new PowerGloveItem());
 	}
 
+	@Override
 	public void tick() {
 		super.tick();
 
@@ -233,6 +234,7 @@ public class Player extends Mob {
 		return dmg;
 	}
 
+	@Override
 	public void render(Screen screen) {
 		int xt = 0;
 		int yt = 14;
@@ -317,15 +319,18 @@ public class Player extends Mob {
 		}
 	}
 
+	@Override
 	public void touchItem(ItemEntity itemEntity) {
 		itemEntity.take(this);
 		inventory.add(itemEntity.item);
 	}
 
+	@Override
 	public boolean canSwim() {
 		return true;
 	}
 
+	@Override
 	public boolean findStartPos(Level level) {
 		while (true) {
 			int x = random.nextInt(level.w);
@@ -348,6 +353,7 @@ public class Player extends Mob {
 		game.scheduleLevelChange(dir);
 	}
 
+	@Override
 	public int getLightRadius() {
 		int r = 2;
 		if (activeItem != null) {
@@ -359,17 +365,20 @@ public class Player extends Mob {
 		return r;
 	}
 
+	@Override
 	protected void die() {
 		super.die();
 		Sound.playerDeath.play();
 	}
 
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (!(entity instanceof Player)) {
 			entity.touchedBy(this);
 		}
 	}
 
+	@Override
 	protected void doHurt(int damage, int attackDir) {
 		if (hurtTime > 0 || invulnerableTime > 0) return;
 

@@ -10,6 +10,7 @@ public class StoneTile extends Tile {
 		super(id);
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int rc1 = 111;
 		int rc2 = 333;
@@ -20,6 +21,7 @@ public class StoneTile extends Tile {
 		screen.render(x * 16 + 8, y * 16 + 8, 32, Color.get(rc1, level.dirtColor, rc2, rc3), 0);
 	}
 
+	@Override
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return false;
 	}

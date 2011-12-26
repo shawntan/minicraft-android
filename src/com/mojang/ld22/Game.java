@@ -1,5 +1,4 @@
 package com.mojang.ld22;
-import java.util.Arrays;
 import java.util.Random;
 
 import org.nushackers.Minicraft.R;
@@ -10,9 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.mojang.ld22.entity.Player;
@@ -173,6 +169,7 @@ public class Game implements Runnable {
 		setMenu(new TitleMenu());
 	}
 
+	@Override
 	public void run() {
 		
 		long lastTime = System.nanoTime();

@@ -31,6 +31,7 @@ public class ItemEntity extends Entity {
 		lifeTime = 60 * 10 + random.nextInt(60);
 	}
 
+	@Override
 	public void tick() {
 		time++;
 		if (time >= lifeTime) {
@@ -62,10 +63,12 @@ public class ItemEntity extends Entity {
 		if (hurtTime > 0) hurtTime--;
 	}
 
+	@Override
 	public boolean isBlockableBy(Mob mob) {
 		return false;
 	}
 
+	@Override
 	public void render(Screen screen) {
 		if (time >= lifeTime - 6 * 20) {
 			if (time / 6 % 2 == 0) return;
@@ -74,6 +77,7 @@ public class ItemEntity extends Entity {
 		screen.render(x - 4, y - 4 - (int) (zz), item.getSprite(), item.getColor(), 0);
 	}
 
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (time > 30) entity.touchItem(this);
 	}

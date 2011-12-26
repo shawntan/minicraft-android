@@ -10,6 +10,7 @@ public class DeadMenu extends Menu {
 	public DeadMenu() {
 	}
 
+	@Override
 	public void tick() {
 		if (inputDelay > 0)
 			inputDelay--;
@@ -18,6 +19,7 @@ public class DeadMenu extends Menu {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		Font.renderFrame(screen, "", 1, 3, 18, 9);
 		Font.draw("You died! Aww!", screen, 2 * 8, 4 * 8, Color.get(-1, 555, 555, 555));

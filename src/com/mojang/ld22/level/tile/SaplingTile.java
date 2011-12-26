@@ -19,12 +19,14 @@ public class SaplingTile extends Tile {
 		connectsToLava = onType.connectsToLava;
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		onType.render(screen, level, x, y);
 		int col = Color.get(10, 40, 50, -1);
 		screen.render(x * 16 + 4, y * 16 + 4, 11 + 3 * 32, col, 0);
 	}
 
+	@Override
 	public void tick(Level level, int x, int y) {
 		int age = level.getData(x, y) + 1;
 		if (age > 100) {
@@ -34,6 +36,7 @@ public class SaplingTile extends Tile {
 		}
 	}
 
+	@Override
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		level.setTile(x, y, onType, 0);
 	}

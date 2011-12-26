@@ -14,6 +14,7 @@ public class SmashParticle extends Entity {
 		Sound.monsterHurt.play();
 	}
 
+	@Override
 	public void tick() {
 		time++;
 		if (time > 10) {
@@ -21,6 +22,7 @@ public class SmashParticle extends Entity {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		int col = Color.get(-1, 555, 555, 555);
 		screen.render(x - 8, y - 8, 5 + 12 * 32, col, 2);

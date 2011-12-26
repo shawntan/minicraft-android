@@ -33,6 +33,7 @@ public class Level {
 
 	public List<Entity> entities = new ArrayList<Entity>();
 	private Comparator<Entity> spriteSorter = new Comparator<Entity>() {
+		@Override
 		public int compare(Entity e0, Entity e1) {
 			if (e1.y < e0.y) return +1;
 			if (e1.y > e0.y) return -1;

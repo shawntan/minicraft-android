@@ -17,6 +17,7 @@ public class Furniture extends Entity {
 		yr = 3;
 	}
 
+	@Override
 	public void tick() {
 		if (shouldTake != null) {
 			if (shouldTake.activeItem instanceof PowerGloveItem) {
@@ -34,6 +35,7 @@ public class Furniture extends Entity {
 		if (pushTime > 0) pushTime--;
 	}
 
+	@Override
 	public void render(Screen screen) {
 		screen.render(x - 8, y - 8 - 4, sprite * 2 + 8 * 32, col, 0);
 		screen.render(x - 0, y - 8 - 4, sprite * 2 + 8 * 32 + 1, col, 0);
@@ -41,10 +43,12 @@ public class Furniture extends Entity {
 		screen.render(x - 0, y - 0 - 4, sprite * 2 + 8 * 32 + 33, col, 0);
 	}
 
+	@Override
 	public boolean blocks(Entity e) {
 		return true;
 	}
 
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (entity instanceof Player && pushTime == 0) {
 			pushDir = ((Player) entity).dir;

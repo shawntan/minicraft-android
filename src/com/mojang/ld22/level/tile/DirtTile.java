@@ -17,6 +17,7 @@ public class DirtTile extends Tile {
 		super(id);
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(level.dirtColor, level.dirtColor, level.dirtColor - 111, level.dirtColor - 111);
 		screen.render(x * 16 + 0, y * 16 + 0, 0, col, 0);
@@ -25,6 +26,7 @@ public class DirtTile extends Tile {
 		screen.render(x * 16 + 8, y * 16 + 8, 3, col, 0);
 	}
 
+	@Override
 	public boolean interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
 		if (item instanceof ToolItem) {
 			ToolItem tool = (ToolItem) item;

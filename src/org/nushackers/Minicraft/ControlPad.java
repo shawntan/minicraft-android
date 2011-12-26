@@ -12,8 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.LinearLayout.LayoutParams;
 
 public class ControlPad extends LinearLayout {
 	
@@ -51,7 +49,7 @@ public class ControlPad extends LinearLayout {
 		removeView(button2);
 
 		int padW = getMeasuredWidth()-(getMeasuredHeight()*3);
-		int joyWidth = (int) ((getMeasuredWidth()-padW)/3);
+		int joyWidth = ((getMeasuredWidth()-padW)/3);
 		LayoutParams joyLParams = new LayoutParams(joyWidth,getMeasuredHeight());
 		joystick.setLayoutParams(joyLParams);
 		button1.setLayoutParams(joyLParams);

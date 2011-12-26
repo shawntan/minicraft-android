@@ -13,6 +13,7 @@ public class Workbench extends Furniture {
 		yr = 2;
 	}
 
+	@Override
 	public boolean use(Player player, int attackDir) {
 		player.game.setMenu(new CraftingMenu(Crafting.workbenchRecipes, player));
 		return true;

@@ -8,10 +8,8 @@ import org.nushackers.Minicraft.MultiButton.MultiTouchListener;
 import com.MobileAnarchy.Android.Widgets.Joystick.JoystickMovedListener;
 
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
-import android.view.View.OnTouchListener;
 
 public class InputHandler implements OnKeyListener, JoystickMovedListener{
 	public class Key {

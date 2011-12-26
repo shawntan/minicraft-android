@@ -11,6 +11,7 @@ public class Lantern extends Furniture {
 		yr = 2;
 	}
 
+	@Override
 	public int getLightRadius() {
 		return 8;
 	}

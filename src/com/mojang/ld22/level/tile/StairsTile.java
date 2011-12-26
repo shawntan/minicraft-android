@@ -12,6 +12,7 @@ public class StairsTile extends Tile {
 		this.leadsUp = leadsUp;
 	}
 
+	@Override
 	public void render(Screen screen, Level level, int x, int y) {
 		int color = Color.get(level.dirtColor, 000, 333, 444);
 		int xt = 0;

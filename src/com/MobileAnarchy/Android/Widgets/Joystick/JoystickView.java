@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
@@ -295,7 +294,7 @@ public class JoystickView extends View {
 			//Origin to touch point
 			canvas.drawLine(cX, cY, handleX, handleY, dbgPaint2);
 			
-			int baseY = (int) (touchY < 0 ? cY + handleRadius : cY - handleRadius);
+			int baseY = (touchY < 0 ? cY + handleRadius : cY - handleRadius);
 			canvas.drawText(String.format("%s (%.0f,%.0f)", TAG, touchX, touchY), handleX-20, baseY-7, dbgPaint2);
 			canvas.drawText("("+ String.format("%.0f, %.1f", radial, angle * 57.2957795) + (char) 0x00B0 + ")", handleX-20, baseY+15, dbgPaint2);
 		}

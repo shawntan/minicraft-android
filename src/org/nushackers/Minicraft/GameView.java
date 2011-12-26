@@ -6,7 +6,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.Button;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	long lastUpdate = 0;

@@ -14,6 +14,7 @@ public class FoodResource extends Resource {
 		this.staminaCost = staminaCost;
 	}
 
+	@Override
 	public boolean interactOn(Tile tile, Level level, int xt, int yt, Player player, int attackDir) {
 		if (player.health < player.maxHealth && player.payStamina(staminaCost)) {
 			player.heal(heal);

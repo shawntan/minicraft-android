@@ -29,6 +29,7 @@ public class CraftingMenu extends Menu {
 		}
 
 		Collections.sort(this.recipes, new Comparator<Recipe>() {
+			@Override
 			public int compare(Recipe r1, Recipe r2) {
 				if (r1.canCraft && !r2.canCraft) return -1;
 				if (!r1.canCraft && r2.canCraft) return 1;
@@ -37,6 +38,7 @@ public class CraftingMenu extends Menu {
 		});
 	}
 
+	@Override
 	public void tick() {
 		if (input.menu.clicked) game.setMenu(null);
 
@@ -62,6 +64,7 @@ public class CraftingMenu extends Menu {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		Font.renderFrame(screen, "Have", 12, 1, 19, 3);
 		Font.renderFrame(screen, "Cost", 12, 4, 19, 11);

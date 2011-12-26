@@ -25,6 +25,7 @@ public class Spark extends Entity {
 		lifeTime = 60 * 10 + random.nextInt(30);
 	}
 
+	@Override
 	public void tick() {
 		time++;
 		if (time >= lifeTime) {
@@ -44,10 +45,12 @@ public class Spark extends Entity {
 		}
 	}
 
+	@Override
 	public boolean isBlockableBy(Mob mob) {
 		return false;
 	}
 
+	@Override
 	public void render(Screen screen) {
 		if (time >= lifeTime - 6 * 20) {
 			if (time / 6 % 2 == 0) return;

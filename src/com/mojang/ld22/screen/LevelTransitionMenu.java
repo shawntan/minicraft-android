@@ -10,12 +10,14 @@ public class LevelTransitionMenu extends Menu {
 		this.dir = dir;
 	}
 
+	@Override
 	public void tick() {
 		time += 2;
 		if (time == 30) game.changeLevel(dir);
 		if (time == 60) game.setMenu(null);
 	}
 
+	@Override
 	public void render(Screen screen) {
 		for (int x = 0; x < 20; x++) {
 			for (int y = 0; y < 15; y++) {

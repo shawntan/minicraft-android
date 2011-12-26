@@ -2,8 +2,6 @@ package com.mojang.ld22.entity;
 
 import com.mojang.ld22.gfx.Color;
 import com.mojang.ld22.gfx.Screen;
-import com.mojang.ld22.item.ResourceItem;
-import com.mojang.ld22.item.resource.Resource;
 import com.mojang.ld22.sound.Sound;
 
 public class AirWizard extends Mob {
@@ -19,6 +17,7 @@ public class AirWizard extends Mob {
 		health = maxHealth = 2000;
 	}
 
+	@Override
 	public void tick() {
 		super.tick();
 
@@ -86,6 +85,7 @@ public class AirWizard extends Mob {
 		}
 	}
 
+	@Override
 	protected void doHurt(int damage, int attackDir) {
 		super.doHurt(damage, attackDir);
 		if (attackDelay == 0 && attackTime == 0) {
@@ -93,6 +93,7 @@ public class AirWizard extends Mob {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		int xt = 8;
 		int yt = 14;
@@ -140,12 +141,14 @@ public class AirWizard extends Mob {
 		screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, col2, flip2);
 	}
 
+	@Override
 	protected void touchedBy(Entity entity) {
 		if (entity instanceof Player) {
 			entity.hurt(this, 3, dir);
 		}
 	}
 
+	@Override
 	protected void die() {
 		super.die();
 		if (level.player != null) {

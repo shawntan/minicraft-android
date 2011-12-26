@@ -22,6 +22,7 @@ public class Mob extends Entity {
 		yr = 3;
 	}
 
+	@Override
 	public void tick() {
 		tickTime++;
 		if (level.getTile(x >> 4, y >> 4) == Tile.lava) {
@@ -38,6 +39,7 @@ public class Mob extends Entity {
 		remove();
 	}
 
+	@Override
 	public boolean move(int xa, int ya) {
 		if (isSwimming()) {
 			if (swimTimer++ % 2 == 0) return true;
@@ -74,15 +76,18 @@ public class Mob extends Entity {
 		return tile == Tile.water || tile == Tile.lava;
 	}
 
+	@Override
 	public boolean blocks(Entity e) {
 		return e.isBlockableBy(this);
 	}
 
+	@Override
 	public void hurt(Tile tile, int x, int y, int damage) {
 		int attackDir = dir ^ 1;
 		doHurt(damage, attackDir);
 	}
 
+	@Override
 	public void hurt(Mob mob, int damage, int attackDir) {
 		doHurt(damage, attackDir);
 	}
