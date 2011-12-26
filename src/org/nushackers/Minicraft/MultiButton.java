@@ -138,14 +138,14 @@ public class MultiButton extends View{
 	}
 	
 	private void release() {
-		Log.v(TAG,"release");
+		//Log.v(TAG,"release");
 		touched = false;
 		invalidate();
 		if(touchEventListener != null) touchEventListener.onTouchEvent(touched);
 		this.pointerId = INVALID_POINTER_ID;
 	}
 	private void press(int pointerId) {
-		Log.v(TAG,"press");
+		//Log.v(TAG,"press");
 		touched = true;
 		invalidate();
 		if(touchEventListener != null) touchEventListener.onTouchEvent(touched);

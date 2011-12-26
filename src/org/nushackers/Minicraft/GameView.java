@@ -3,32 +3,40 @@ package org.nushackers.Minicraft;
 import com.mojang.ld22.Game;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameView extends View {
 	long lastUpdate = 0;
 	long sleepTime=0;
-	
-	
 	Game game;
 	SurfaceHolder surfaceHolder;
-	Context context;
+	public Context context;
+	Paint drawPaint;
+	
+	public int[] pixels;
 	void init(){
-		SurfaceHolder holder = getHolder();
-		holder.addCallback(this);
 
-		game = new Game(holder, context.getResources());
+		game = new Game(this);
+		drawPaint = new Paint();
+        drawPaint.setAntiAlias(false);
+        
+        pixels = new int[Game.HEIGHT*Game.WIDTH];
 		//thread = new Thread(game);
+        
 		setFocusable(true);
 		
 		setOnKeyListener(game.getInput());
 
-
-
 	}
 	
+	//public Runnable paintJob = 
 
 	public GameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -41,24 +49,39 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		init();
 	}
 
-	@Override
-	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {}
 
-	@Override
-	public void surfaceCreated(SurfaceHolder sh) {	
-		game.start();
+	private boolean first = true;
+	private float scale;
+	private float ww,hh;
+	int xo,yo;
+	private int height;
+	public void setDimensions(int width, int height) {
+		scale = Math.max(
+				height/(float)Game.HEIGHT,
+				width/(float)Game.WIDTH
+				);
+		ww = Game.WIDTH * this.scale;
+		hh = Game.HEIGHT * this.scale;
+		xo = (int)(width - ww) / 2;
+		yo = (int)(height - hh) / 2;
+		first = false;
+		System.out.println(width+"x"+height+":"+scale);
 	}
+	
+	private Runnable doInvalidate = new Runnable() {		
+		public void run() {
+			invalidate();
+		}
+	};
+	public void repaint() {
+		post(doInvalidate);
+	}
+	
 
 	@Override
-	public void surfaceDestroyed(SurfaceHolder arg0) {
-		boolean retry = true;
-		while (retry) {
-			try {
-				game.stop();
-				retry = false;
-			} catch (InterruptedException e) {
-			}
-		}
+	protected void onDraw(Canvas c) {
+		c.scale(scale,scale,xo,yo);
+		c.drawBitmap(pixels,0,Game.WIDTH,xo,yo,Game.WIDTH,Game.HEIGHT,false, drawPaint);
 	}
 
 }

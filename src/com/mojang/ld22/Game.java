@@ -1,6 +1,7 @@
 package com.mojang.ld22;
 import java.util.Random;
 
+import org.nushackers.Minicraft.GameView;
 import org.nushackers.Minicraft.R;
 
 
@@ -10,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.mojang.ld22.entity.Player;
@@ -29,10 +31,8 @@ public class Game implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private Random random = new Random();
 	public static final String NAME = "Minicraft";
-	public static final int HEIGHT = 140;
-	public static final int WIDTH = 250;
-
-	private int scale;
+	public static final int HEIGHT = 120;
+	public static final int WIDTH = 160;
 
 	//change to Bitmap
 	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -84,15 +84,17 @@ public class Game implements Runnable {
 	}
 
 
-	private Paint align;
+
 	private Resources res;
 	//private Rect srcRect = new Rect(0, 0, image.getWidth(), image.getHeight());
 	//private Rect desRect = new Rect(0, 0, image.getWidth()*SCALE,image.getHeight()*SCALE);
 
-	public Game(SurfaceHolder surfaceHolder, Resources res){
-		this.surfaceHolder = surfaceHolder;
-		this.res = res;
-
+	
+	private GameView view;
+	
+	public Game(GameView view){
+		this.res = view.context.getResources();
+		this.view = view;
 		init();
 	}
 
@@ -107,9 +109,14 @@ public class Game implements Runnable {
 		thread.start();
 	}
 	private Thread thread;
-	public void stop() throws InterruptedException {
-		running = false;
-		thread.join();
+	public void stop(){
+		try {
+			running = false;
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void resetGame() {
@@ -174,7 +181,7 @@ public class Game implements Runnable {
 
 	@Override
 	public void run() {
-		
+
 		long lastTime = System.nanoTime();
 		double unprocessed = 0;
 		double nsPerTick = 1000000000.0 / 60;
@@ -254,8 +261,9 @@ public class Game implements Runnable {
 		level.add(player);
 
 	}
-	private int ww,hh,xo,yo;
+	
 	public void render() {
+	
 		/*
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
@@ -293,7 +301,7 @@ public class Game implements Runnable {
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
 				int p =x + y * screen.w, cc = screen.pixels[p];
-				if(cc < 255) screen.pixels[p] = colors[cc];
+				if(cc < 255) view.pixels[p] = colors[cc];
 				/*
 				int des= x*SCALE + y*ww;
 				if(cc < 255) Arrays.fill(image, des, des+SCALE, colors[cc]);*/
@@ -304,31 +312,11 @@ public class Game implements Runnable {
 		//image.setPixels(screen.pixels, 0, screen.w, 0, 0, screen.w, screen.h);
 		//c.drawColor(0);
 		//g.fillRect(0, 0, getWidth(), getHeight());
-
-
-		Canvas c = null;
-		try {
-			c = surfaceHolder.lockCanvas();
-			if(this.scale == 0){
-				this.scale = Math.min(
-						c.getHeight()/HEIGHT,
-						c.getWidth()/WIDTH
-				);
-				ww = WIDTH * this.scale;
-				hh = HEIGHT * this.scale;
-				xo = (c.getWidth() - ww) / 2;
-				yo = (c.getHeight() - hh) / 2;
-			}
-			synchronized(surfaceHolder){
-				//c.drawBitmap(image,srcRect,desRect,align);
-				c.scale(this.scale,this.scale, xo, yo);
-				c.drawBitmap(screen.pixels,0,WIDTH,xo,yo,WIDTH,HEIGHT,false,align);
-			}
-		} finally {
-			if(c != null) surfaceHolder.unlockCanvasAndPost(c);
-		}
-
+		
+		//Canvas c = null;
+		view.repaint();
 	}
+
 
 	private void renderGui() {
 		for (int y = 0; y < 2; y++) {
