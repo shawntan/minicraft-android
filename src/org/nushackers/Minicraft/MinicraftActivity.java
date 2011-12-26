@@ -21,7 +21,6 @@ public class MinicraftActivity extends Activity {
 		
 		setContentView(R.layout.main);
 		GameView gv = (GameView)findViewById(R.id.gameView);
-		gv.requestLayout();
 		Game game = gv.game;
 		ControlPad pad = (ControlPad)findViewById(R.id.controlPad);
 		
