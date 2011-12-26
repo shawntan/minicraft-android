@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.SurfaceHolder;
 
 import com.mojang.ld22.entity.Player;
@@ -30,7 +31,8 @@ public class Game implements Runnable {
 	public static final String NAME = "Minicraft";
 	public static final int HEIGHT = 140;
 	public static final int WIDTH = 250;
-	private static final int SCALE = 3;
+
+	private int scale;
 
 	//change to Bitmap
 	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -90,6 +92,7 @@ public class Game implements Runnable {
 	public Game(SurfaceHolder surfaceHolder, Resources res){
 		this.surfaceHolder = surfaceHolder;
 		this.res = res;
+
 		init();
 	}
 
@@ -251,7 +254,7 @@ public class Game implements Runnable {
 		level.add(player);
 
 	}
-
+	private int ww,hh,xo,yo;
 	public void render() {
 		/*
 		BufferStrategy bs = getBufferStrategy();
@@ -302,16 +305,23 @@ public class Game implements Runnable {
 		//c.drawColor(0);
 		//g.fillRect(0, 0, getWidth(), getHeight());
 
-		int ww = WIDTH * SCALE;
-		int hh = HEIGHT * SCALE;
+
 		Canvas c = null;
 		try {
 			c = surfaceHolder.lockCanvas();
+			if(this.scale == 0){
+				this.scale = Math.min(
+						c.getHeight()/HEIGHT,
+						c.getWidth()/WIDTH
+				);
+				ww = WIDTH * this.scale;
+				hh = HEIGHT * this.scale;
+				xo = (c.getWidth() - ww) / 2;
+				yo = (c.getHeight() - hh) / 2;
+			}
 			synchronized(surfaceHolder){
-				int xo = (c.getWidth() - ww) / 2;
-				int yo = (c.getHeight() - hh) / 2;
 				//c.drawBitmap(image,srcRect,desRect,align);
-				c.scale(SCALE,SCALE, xo, yo);
+				c.scale(this.scale,this.scale, xo, yo);
 				c.drawBitmap(screen.pixels,0,WIDTH,xo,yo,WIDTH,HEIGHT,false,align);
 			}
 		} finally {

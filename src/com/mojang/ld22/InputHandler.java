@@ -7,25 +7,36 @@ import org.nushackers.Minicraft.MultiButton.MultiTouchListener;
 
 import com.MobileAnarchy.Android.Widgets.Joystick.JoystickMovedListener;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 
 public class InputHandler implements OnKeyListener, JoystickMovedListener{
+	private static final int HOLD_LENGTH = 30;
 	public class Key {
 		public int presses, absorbs;
 		public boolean down, clicked;
+		
+		private int hold = 0;
 
 		public Key() {
 			keys.add(this);
 		}
-
+		
+		public void hold(boolean down) {
+			hold = down?1:0;
+			if(down) presses++;
+		}
+		
 		public void toggle(boolean pressed) {
 			/*if (pressed != down)*/ down = pressed;
 			if (pressed) presses++;
 		}
 
 		public void tick() {
+			if(hold == HOLD_LENGTH) presses++; 	//generate presses if held long enough
+			else if (hold > 0) hold++;			//length of holding increases
 			if (absorbs < presses) {
 				absorbs++;
 				clicked = true;
@@ -72,7 +83,7 @@ public class InputHandler implements OnKeyListener, JoystickMovedListener{
 			
 			@Override
 			public void onTouchEvent(boolean pressed) {
-				attack.toggle(pressed);
+				attack.hold(pressed);
 			}
 		};
 		//game.addKeyListener(this);

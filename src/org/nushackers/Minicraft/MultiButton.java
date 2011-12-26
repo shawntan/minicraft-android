@@ -88,6 +88,7 @@ public class MultiButton extends View{
 	}
 	public static final int INVALID_POINTER_ID = -1;
 	private int pointerId = INVALID_POINTER_ID;
+	private int countdown;
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		final int action = event.getAction();
