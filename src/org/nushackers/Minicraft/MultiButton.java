@@ -95,16 +95,16 @@ public class MultiButton extends View{
 			case MotionEvent.ACTION_MOVE: {if(pointerId!= INVALID_POINTER_ID) return true;}
 			case MotionEvent.ACTION_CANCEL:
 			case MotionEvent.ACTION_UP: {
-				if(pointerId != INVALID_POINTER_ID) release();
+				if(pointerId != INVALID_POINTER_ID) {
+					release();
+				}
 				break;
 			}
 			case MotionEvent.ACTION_POINTER_UP:{
 				if(pointerId != INVALID_POINTER_ID){
 			        final int p = (action & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
-			        final int pointerId = event.getPointerId(p);
-			        if(pointerId == this.pointerId){
+			        if(event.getPointerId(p) == this.pointerId){
 			        	release();
-				        return true;
 			        }
 				}
 				break;
@@ -125,7 +125,7 @@ public class MultiButton extends View{
 			        final int pointerId = event.getPointerId(pointerIndex);
 			        int x = (int) event.getX(pointerId);
 			        if(x >= offsetX && x < (offsetX + diameter)){
-			        	press(event.getPointerId(0));
+			        	press(event.getPointerId(pointerId));
 			        	return true;
 			        }
 		    	}

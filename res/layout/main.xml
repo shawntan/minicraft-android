@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <org.nushackers.Minicraft.GameView
+     <org.nushackers.Minicraft.GameView
         android:id="@+id/gameView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" /> 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
