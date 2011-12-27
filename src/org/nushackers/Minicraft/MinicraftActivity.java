@@ -29,7 +29,11 @@ public class MinicraftActivity extends Activity {
 		GameView gv = (GameView)findViewById(R.id.gameView);
 		
 		//dims bottom bar for Android tablets
-		gv.setSystemUiVisibility(View.STATUS_BAR_HIDDEN);
+		if (android.os.Build.VERSION.SDK_INT >=
+			android.os.Build.VERSION_CODES.HONEYCOMB)
+		{
+			gv.setSystemUiVisibility(View.STATUS_BAR_HIDDEN);
+		}
 		
 		game = gv.game;
 		ControlPad pad = (ControlPad)findViewById(R.id.controlPad);
