@@ -13,12 +13,15 @@ import android.view.SurfaceView;
 import android.view.View;
 
 public class GameView extends View {
-	long lastUpdate = 0;
-	long sleepTime=0;
-	Game game;
-	SurfaceHolder surfaceHolder;
+	private long lastUpdate = 0;
+	private long sleepTime=0;
+	public Game game;
+	private SurfaceHolder surfaceHolder;
 	public Context context;
-	Paint drawPaint;
+	private Paint drawPaint;
+	private int ww, hh;
+	private float sx, sy;
+	private int xo, yo;
 	
 	public int[] pixels;
 	void init(){
@@ -50,24 +53,6 @@ public class GameView extends View {
 	}
 
 
-	private boolean first = true;
-	private float scale;
-	private float ww,hh;
-	int xo,yo;
-	private int height;
-	public void setDimensions(int width, int height) {
-		scale = Math.max(
-				height/(float)Game.HEIGHT,
-				width/(float)Game.WIDTH
-				);
-		ww = Game.WIDTH * this.scale;
-		hh = Game.HEIGHT * this.scale;
-		xo = (int)(width - ww) / 2;
-		yo = (int)(height - hh) / 2;
-		first = false;
-		System.out.println(width+"x"+height+":"+scale);
-	}
-	
 	private Runnable doInvalidate = new Runnable() {		
 		public void run() {
 			invalidate();
@@ -76,12 +61,33 @@ public class GameView extends View {
 	public void repaint() {
 		post(doInvalidate);
 	}
-	
 
+	private void recalculateScale(Canvas c)	{
+		int canvasHeight = c.getHeight();
+		int canvasWidth = c.getWidth();
+		if (canvasHeight * Game.WIDTH / Game.HEIGHT > canvasWidth)
+		{
+			ww = canvasWidth;
+			hh = canvasWidth * Game.HEIGHT / Game.WIDTH;
+		}
+		else
+		{
+			ww = canvasHeight * Game.WIDTH / Game.HEIGHT;
+			hh = canvasHeight;
+		}
+		sx = (float)ww / Game.WIDTH;
+		sy = (float)hh / Game.HEIGHT;
+		xo = (canvasWidth - ww) / 2;
+		yo = (canvasHeight - hh) / 2;
+		
+		
+	}
+	
 	@Override
 	protected void onDraw(Canvas c) {
-		c.scale(scale,scale,xo,yo);
-		c.drawBitmap(pixels,0,Game.WIDTH,xo,yo,Game.WIDTH,Game.HEIGHT,false, drawPaint);
+		recalculateScale(c);
+		c.scale(sx,sy,0,0);
+		c.drawBitmap(pixels,0,Game.WIDTH,xo/sx,yo/sy,Game.WIDTH,Game.HEIGHT,false, drawPaint);
 	}
 
 }

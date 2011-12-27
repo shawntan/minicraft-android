@@ -5,6 +5,7 @@ import com.mojang.ld22.Game;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 public class MinicraftActivity extends Activity {
@@ -26,10 +27,13 @@ public class MinicraftActivity extends Activity {
 		setContentView(R.layout.main);
 
 		GameView gv = (GameView)findViewById(R.id.gameView);
-
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		gv.setDimensions(metrics.widthPixels,metrics.heightPixels);
+		
+		//dims bottom bar for Android tablets
+		if (android.os.Build.VERSION.SDK_INT >=
+			android.os.Build.VERSION_CODES.HONEYCOMB)
+		{
+			gv.setSystemUiVisibility(View.STATUS_BAR_HIDDEN);
+		}
 		
 		game = gv.game;
 		ControlPad pad = (ControlPad)findViewById(R.id.controlPad);
