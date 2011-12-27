@@ -5,6 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:targetSdkVersion="11" />
 
     <application
         android:icon="@drawable/ic_launcher"
