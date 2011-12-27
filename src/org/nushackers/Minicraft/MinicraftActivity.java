@@ -27,10 +27,6 @@ public class MinicraftActivity extends Activity {
 
 		GameView gv = (GameView)findViewById(R.id.gameView);
 
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		gv.setDimensions(metrics.widthPixels,metrics.heightPixels);
-		
 		game = gv.game;
 		ControlPad pad = (ControlPad)findViewById(R.id.controlPad);
 		

@@ -58,6 +58,6 @@ public class TitleMenu extends Menu {
 			Font.draw(msg, screen, (screen.w - msg.length() * 8) / 2, (8 + i) * 8, col);
 		}
 
-		Font.draw("(Arrow keys,Q and W)", screen, 30, screen.h - 8, Color.get(0, 111, 111, 111));
+		Font.draw("(Arrow keys,Q and W)", screen, 0, screen.h - 8, Color.get(0, 111, 111, 111));
 	}
 }

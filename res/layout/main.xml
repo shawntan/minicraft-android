@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -10,15 +10,17 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" 
         android:layout_gravity="center_horizontal"/>
-        <org.nushackers.Minicraft.ControlPad
-            android:id="@+id/controlPad"
-            android:layout_width="wrap_content"
-            android:layout_height="110dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true" >
-        </org.nushackers.Minicraft.ControlPad>
-
-
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <org.nushackers.Minicraft.ControlPad
+        android:id="@+id/controlPad"
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true" >
+    </org.nushackers.Minicraft.ControlPad>
+    </RelativeLayout>
+</FrameLayout>
