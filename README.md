@@ -6,8 +6,8 @@ This is my attempt at porting it to Android.
 ##To do
 
 - Save & Resume game
-- Optimisation so that games run smoother with less memory footprint 
-- Testing: not sure if games works at lower levels yet.
+- Optimisation so that game run smoother with less memory footprint 
+- Testing: not sure if game works at lower levels yet.
 
 ##Download
 You can download the .apk here:
