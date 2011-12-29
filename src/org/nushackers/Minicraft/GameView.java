@@ -56,7 +56,7 @@ public class GameView extends View {
 	int xo,yo;
 	private int height;
 	public void setDimensions(int width, int height) {
-		scale = Math.max(
+		scale = Math.min(
 				height/(float)Game.HEIGHT,
 				width/(float)Game.WIDTH
 				);
