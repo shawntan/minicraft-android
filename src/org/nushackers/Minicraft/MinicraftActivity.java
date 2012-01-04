@@ -47,6 +47,7 @@ public class MinicraftActivity extends Activity {
 		wakelock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "Minicraft");
 		wakelock.acquire();
 		game.start();
+	
 
 	}
 	@Override

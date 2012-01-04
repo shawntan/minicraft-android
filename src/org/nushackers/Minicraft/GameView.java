@@ -17,12 +17,11 @@ public class GameView extends View {
 	long sleepTime=0;
 	Game game;
 	SurfaceHolder surfaceHolder;
-	public Context context;
+	public static Context context;
 	Paint drawPaint;
 	
 	public int[] pixels;
 	void init(){
-
 		game = new Game(this);
 		drawPaint = new Paint();
         drawPaint.setAntiAlias(false);
@@ -40,21 +39,20 @@ public class GameView extends View {
 
 	public GameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		this.context = context;
+		GameView.context = context;
 		init();
 	}
 	public GameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		this.context = context;
+		GameView.context = context;
 		init();
 	}
 
 
-	private boolean first = true;
+	//private boolean first = true;
 	private float scale;
 	private float ww,hh;
 	int xo,yo;
-	private int height;
 	public void setDimensions(int width, int height) {
 		scale = Math.min(
 				height/(float)Game.HEIGHT,
@@ -64,7 +62,6 @@ public class GameView extends View {
 		hh = Game.HEIGHT * this.scale;
 		xo = (int)(width - ww) / 2;
 		yo = (int)(height - hh) / 2;
-		first = false;
 		System.out.println(width+"x"+height+":"+scale);
 	}
 	
